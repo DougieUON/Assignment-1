@@ -1,0 +1,36 @@
+#include<stdio.h>
+ 
+int main()
+    char message[] = /* enter message here*/, character;     //initialising input message and character
+	int counter = 0, key = /*enter key integer here*/; //initialising counter and key as integers
+
+    printf("Rotational Key is: %d\n", key);	
+	printf("Message is: %s\n", message);
+	
+	for(counter = 0; message[counter] != '0'; ++counter) {
+		character = message[counter];
+		
+		if(character >= 'a' && character <= 'z'){
+			character = character - key - 32; //decryption = (cipher letter + key)(mod 26) - 32 to convert to capitals
+			
+			if(ch < 'a'){
+				ch = ch + 'z' - 'a' + 1;
+			}
+			
+			message[counter] = character;
+		}
+		else if(ch >= 'A' && ch <= 'Z'){
+			character = character - key;
+			
+			if(character < 'A'){
+				character = character + 'Z' - 'A' + 1;
+			}
+			
+			message[counter] = character;
+		}
+	}
+	
+	printf("Decrypted Message is: %s\n", message);
+	
+	return 0;
+}
