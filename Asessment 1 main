@@ -1,0 +1,91 @@
+#include<stdio.h>
+#include<string.h>
+#include<strings.h>
+
+int RotDecrypt(char message[], int key); //Initialise characters and key as function prototype for rotational decryption
+int RotEncrypt(char message[], int key); //Initialise characters and key as function prototype for rotational encryption
+
+int main() {
+    char message[] = "Example message"; //Hardcode message here
+    int option, key = 1 ; //Hardcode Rotational key here
+    
+    printf("Select an option below\n");  //setup menu to choose option
+    printf("1. Rotational Decryption\n");
+    printf("2. Rotational Encryption\n");
+    scanf("%d", &option); //scans option 1 or 2 as an input
+    
+    switch(option) { //switch case to allocate option 1 or 2 to a function
+        case 1: RotDecrypt(message, key); //case 1 for decryption
+        break;
+        case 2: RotEncrypt(message, key); //case 2 for encryption
+        break;
+        default: printf("This option is not available, choose option 1 or 2"); //default case for other inputs
+        break;
+        return 0; //ends code if other numbers are inputed
+    }
+}
+
+int RotDecrypt(char message[], int key) { //function argument for decryption
+    char character; //initialise character as a char
+    int counter = 0; //intialise counter as an integer equal to 0
+    
+	
+	for(counter = 0; message[counter] != '0'; ++counter) { //start for loop where counter increments until all characters are decrypted
+		character = message[counter]; //takes whole message and converts them into single characters
+		
+		if(character >= 'a' && character <= 'z'){ //decrypts lower case characters
+			character = character - key;    //decryption = (cipher letter - key)
+			
+			if(character < 'a'){
+				character = character + 'z' - 'a' + 1; //converts non letter characters into a space ('z' - 'a' + 1 = 32 = space character)
+			}
+			
+			message[counter] = character; //stores single characters back into a decrypted message
+		}
+		else if(character >= 'A' && character <= 'Z'){ //decrypts upper case characters
+			character = character - key;
+			
+			if(character < 'A'){
+				character = character + 'Z' - 'A' + 1; //converts non letter characters into a space ('Z' - 'A' + 1 = 32 = space character)
+			}
+			
+			message[counter] = character; //stores single characters back into a decrypted message
+		}
+	}
+	
+    printf("Decrypted Message is: %s\n", message); //prints decrypted message
+	
+	return 0; //ends function loop
+}
+
+int RotEncrypt(char message[], int key) { //function argument for encryption
+    char character; //initialise characters as char
+    int counter = 0; //initialise counter as an integer equal to 0
+	
+	for(counter = 0; message[counter] != '0'; ++counter) { //start for loop where counter increments until all characters are encrypted
+		character = message[counter]; //takes whole message and converts them into single characters
+		
+		if(character >= 'a' && character <= 'z'){ //encrypts lower case letters
+			character = character + key; //encryption = (cipher letter + key)
+			
+			if(character < 'a'){
+				character = character - 'z' - 'a' + 1; //converts non letter characters into a space ('z' - 'a' + 1 = 32 = space character)
+			}
+			
+			message[counter] = character; //converts single characters back into encrypted message
+		}
+		else if(character >= 'A' && character <= 'Z'){ //encrypts upper case letters
+			character = character + key;
+			
+			if(character < 'A'){
+				character = character - 'Z' - 'A' + 1; //converts non letter characters into a space ('Z' - 'A' + 1 = 32 = space character)
+			}
+			
+			message[counter] = character; //converts single characters back into encrypted message
+		}
+	}
+	
+    printf("Encrypted Message is: %s\n", message); //prints encrypted message to screen
+	
+	return 0; //ends function loop
+}
